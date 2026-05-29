@@ -5,9 +5,9 @@
 Adafruit_VL53L1X vl53;
 SHA256 sha256;
 
-const uint8_t WINDOW = 8;
-const uint16_t FLATLINE_DELTA_MM = 10;
-const uint8_t REQUIRED_STABLE_PAIRS = 4;
+const uint8_t WINDOW = 4;
+const uint16_t FLATLINE_DELTA_MM = 20;
+const uint8_t REQUIRED_STABLE_PAIRS = 2;
 
 const uint8_t DIFFICULTY_BITS = 16;
 
@@ -83,10 +83,8 @@ void u32ToBE(uint32_t v, uint8_t *out) {
 
 uint32_t buildSeedFromWindow() {
   Sample s0 = getOrdered(0);
-  uint32_t seed = 0x9E3779B9UL;
-  seed ^= (uint32_t)(uint16_t)s0.dist_mm;
-  seed ^= ((uint32_t)stablePairsGlobal << 16);
-  seed ^= (sampleCount & 0xFFFFUL);
+  uint32_t seed = random(1000000000);
+ 
   return seed;
 }
 
@@ -97,6 +95,7 @@ void resetPow() {
 }
 
 void setup() {
+  randomSeed(analogRead(0)); 
   Serial.begin(115200);
   while (!Serial) {}
   Wire.begin();
