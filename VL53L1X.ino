@@ -83,7 +83,7 @@ void u32ToBE(uint32_t v, uint8_t *out) {
 
 uint32_t buildSeedFromWindow() {
   Sample s0 = getOrdered(0);
-  randomSeed(analogRead(0)); 
+  randomSeed(analogRead(0)*analogRead(1)*analogRead(2)); 
 
   uint32_t seed = random(1000000000);
  
