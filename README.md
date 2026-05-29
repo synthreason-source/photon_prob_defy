@@ -5,4 +5,4 @@ The grating functions as a multi-slit interferometer element, producing double-s
 A grating plus beam splitter plus mirrors can preserve or redistribute coherence across paths, so you can get interference-like behavior if coherence length and alignment are good.
 
 
-low/high entropy
+low/high value differentation
