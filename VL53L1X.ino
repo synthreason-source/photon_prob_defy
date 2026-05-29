@@ -83,6 +83,8 @@ void u32ToBE(uint32_t v, uint8_t *out) {
 
 uint32_t buildSeedFromWindow() {
   Sample s0 = getOrdered(0);
+  randomSeed(analogRead(0)); 
+
   uint32_t seed = random(1000000000);
  
   return seed;
@@ -95,7 +97,6 @@ void resetPow() {
 }
 
 void setup() {
-  randomSeed(analogRead(0)); 
   Serial.begin(115200);
   while (!Serial) {}
   Wire.begin();
