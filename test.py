@@ -49,8 +49,9 @@ def mine_for_seed(seed: int, difficulty_bits: int) -> dict:
             best_score = score
             best_nonce = nonce
             best_digest = digest
-
         if score >= difficulty_bits:
+            print(best_digest.hex())
+
             break
 
     t1 = time.perf_counter()
@@ -76,7 +77,7 @@ def main():
     time.sleep(2.0)          # let Arduino reset
     ser.reset_input_buffer()
 
-    # Prepare CSV log
+    # Prepare CSV log – note we always include difficulty_bits
     csv_file = open(CSV_LOG, "w", newline="")
     writer = csv.writer(csv_file)
     writer.writerow([
@@ -126,8 +127,9 @@ def main():
                   f"act={ar_active} bn={ar_best_nonce} bs={ar_best_score}")
 
             # ---------- Host‑side PoW when a flatline appears ----------
+            # Start with a dict that always contains difficulty_bits
             host_result = {
-                "difficulty_bits": DIFFICULTY_BITS,   # always present
+                "difficulty_bits": DIFFICULTY_BITS,   # <-- always present
                 "trials": None,
                 "elapsed_s": None,
                 "hashes_per_s": None,
@@ -140,6 +142,8 @@ def main():
                 print(f"[*] Flatline @ t={t_ms}ms, seed={seed} → starting host PoW "
                       f"(difficulty={DIFFICULTY_BITS} bits)…")
                 host_result = mine_for_seed(seed, DIFFICULTY_BITS)
+                # Ensure difficulty_bits stays in the dict (mine_for_seed returns dict w/out it)
+                host_result["difficulty_bits"] = DIFFICULTY_BITS
                 print(f"[POW] done → trials={host_result['trials']:,} "
                       f"elapsed={host_result['elapsed_s']:.3f}s "
                       f"H/s={host_result['hashes_per_s']:,.0f} "
