@@ -6,3 +6,4 @@ low/high value differentation
 
 
 proof the processor interacts with photons
+flatline freq changes upon mode switch...
