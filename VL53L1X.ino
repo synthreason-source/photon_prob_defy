@@ -5,9 +5,9 @@
 Adafruit_VL53L1X vl53;
 SHA256 sha256;
 
-const uint8_t WINDOW = 4;
-const uint16_t FLATLINE_DELTA_MM = 20;
-const uint8_t REQUIRED_STABLE_PAIRS = 2;
+const uint8_t WINDOW = 2;
+const uint16_t FLATLINE_DELTA_MM = 30;
+const uint8_t REQUIRED_STABLE_PAIRS = 1;
 
 const uint8_t DIFFICULTY_BITS = 16;
 
@@ -172,8 +172,8 @@ void loop() {
       return;
     }
 
-    // Hash had some leading zeros, but not enough for success
-    Serial.print(F("# POW_REJECT nonce="));
+    // Hash had some leading zeros
+    Serial.print(F("# POW nonce="));
     Serial.print(powNonce);
     Serial.print(F(" score="));
     Serial.println(score);
