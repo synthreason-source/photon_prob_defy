@@ -11,7 +11,7 @@ const uint16_t FLATLINE_DELTA_MM     = 32800;
 const uint8_t  REQUIRED_STABLE_PAIRS = 2;
 
 // ── PoW config ────────────────────────────────────────────────────────────────
-const uint8_t DIFFICULTY_BITS = 1;
+const uint8_t DIFFICULTY_BITS = 4;
 
 // ── Mode flag ─────────────────────────────────────────────────────────────────
 bool useSHA256 = true;
